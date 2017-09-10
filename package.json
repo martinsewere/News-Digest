@@ -1,0 +1,28 @@
+{
+  "name": "mongoose-web-scrapper",
+  "version": "1.0.0",
+  "description": "This is a node.js App that uses Mongoose and Cheerio to scrape a news site for the latest news, based on inputed keywords.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinsewere/Mongoose-web-scrapper.git"
+  },
+  "author": "Martins Ewere",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinsewere/Mongoose-web-scrapper/issues"
+  },
+  "homepage": "https://github.com/martinsewere/Mongoose-web-scrapper#readme",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.11.10",
+    "morgan": "^1.8.2",
+    "request": "^2.81.0"
+  }
+}
