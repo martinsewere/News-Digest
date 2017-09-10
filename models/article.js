@@ -23,7 +23,7 @@ var ArticleSchema = new Schema({
   },
   image: {
     type: String,
-    default: '/assets/image/Reddit-Logo.jpeg',
+    default: '/assets/image/wsj-Logo.jpeg',
     required: true
   },
   saved: {

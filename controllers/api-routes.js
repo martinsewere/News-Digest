@@ -139,9 +139,9 @@ app.post("/note/:id", function(req, res) {
       });
     }
 
-  });
+  })
 
-});
+})
 
 app.post("/unsave/:id", function(req, res) {
 
