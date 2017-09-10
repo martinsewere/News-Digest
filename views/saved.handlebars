@@ -1,0 +1,109 @@
+{{> navbar }}
+
+
+<div class="container">
+  
+    <div class="row results-area">
+        {{#unless data.articles}}
+            <div class="panel panel-default">
+             <div class="panel-body">
+                 <h2>You have not saved any articles yet.</h2>
+             </div>
+            </div>
+        {{/unless}}
+
+
+        {{#each data.articles}}
+        {{#if this.saved}}
+
+     <!-- modal Area -->
+        <div class="modal fade" id={{this.id}} role="dialog">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{this.title}}</h4>
+                        </div>
+                        <div class="modal-body">
+                                <div class="Notes">
+                                     {{#each this.note}} 
+                                    <div>
+                                        <form action="/delete/note/{{this.id}}" method="POST">
+                                            <button class="btn btn-danger delete-note">X</button>
+                                         <p>{{this.body}}</p>
+                                         </form>
+                                         
+                                    </div>
+                                   
+                                    <hr>
+
+                                     {{/each}} 
+                        
+                                </div>
+                                <form action="/note/{{this.id}}" method="POST">
+                                <div class="form-group">
+                                    <label for="message-text" class="control-label">Note:</label>
+                                    <textarea class="form-control" id="message-text" name="note"></textarea>
+                                </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Save Note</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- modal Area -->
+    <!-- Panel Area -->
+    <div class="col-md-10 col-md-offset-1 test">
+        <div class="panel panel-default">
+             <div class="panel-body">
+                 <div class="col-md-2">
+                     <p>Upvotes: {{this.upvote}}</p>
+                    
+                 </div>
+                 <div class="col-md-3">
+                     <img width="80%" src="{{this.image}}" alt="">
+                </div>
+                 <div class="col-md-5 title-alignment">
+                    <div class="row title-alignment"></div>
+                     <div class="row"><p>{{this.title}}</p></div>
+                      <div class="row"></div>
+                 </div>
+                 <div class="col-md-2">
+
+                     <div class="row btn-row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default result-btn"><a href="{{this.link}}" target="_blank">Visit Page</a></button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12 btn-row">
+                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#{{this.id}}">Add a Note</button>
+
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12 btn-row">
+                             <form action="/unsave/{{this.id}}" method="POST">
+                                <button class="btn btn-default">Unsave</button>
+                            </form>
+
+                        </div>
+                     </div>
+                      
+
+                       
+                 </div>
+             </div>
+        </div>
+    </div>
+
+        {{/if}}
+        {{/each}}
+         <!-- Panel Area -->
+</div> 
+</div>
+
+</div>

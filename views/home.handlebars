@@ -1,0 +1,92 @@
+
+{{> navbar }}
+
+
+<div class="container">
+
+    {{!-- <div class="jumbotron"> --}}
+         <div class="row ">
+            <div class="col-md-12  col-md-offset-1 search-area">
+                <div class="text">  
+                <form action="/" method="POST">
+                <h1 class="title" >Reddit.com/r/<input id="search-Bar" name="searchTerm" type="text" placeholder="..subreddit"></h1>
+                </div>
+                 <button class="btn btn-primary scrape-button" >Scrape</button>
+                 <button class="btn btn-primary scrape-button"><a class="saved" href="/saved">Saved Articles</a></button>
+                 </form>
+            </div> 
+
+         </div>
+         <div class="row text-center">
+            <div class="col-md-12">
+                 <form action="/clear" method="POST"> 
+                 <button class="btn btn-danger scrape-button" >Clear Results</button>
+                 </form> 
+                 {{!-- <button class="btn btn-primary scrape-button"><a class="saved" href="/saved">Saved Articles</a></button> --}}
+                  
+            </div> 
+        </div> 
+ 
+
+    
+<div class="row results-area">
+
+    {{#unless data.articles}}
+            <div class="panel panel-default">
+             <div class="panel-body">
+                 <h2>Search for your favorite subreddit and let scrapeBot handle the rest! Example: all, nba, news</h2>
+             </div>
+            </div>
+        {{/unless}}
+
+
+    {{#each data.articles}}
+    {{#unless this.saved}}
+
+    <div class="col-md-10 col-md-offset-1 test">
+        <div class="panel panel-default">
+             <div class="panel-body">
+                 <div class="col-md-2">
+                     <p>Upvotes: {{this.upvote}}</p>
+                    
+                 </div>
+                 <div class="col-md-3">
+                     <img width="80%" src="{{this.image}}" alt="">
+                </div>
+                 <div class="col-md-5 title-alignment">
+                    <div class="row title-alignment"></div>
+                     <div class="row"><p>{{this.title}}</p></div>
+                      <div class="row"></div>
+                 </div>
+                 <div class="col-md-2">
+
+                     <div class="row btn-row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default result-btn"><a href="{{this.link}}" target="_blank">Visit Page</a></button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                             <form action="/save/{{this.id}}" method="POST">
+                                <button class="btn btn-default result-btn">Save</button>
+                            </form>
+
+                        </div>
+                     </div>
+                      
+
+                       
+                 </div>
+             </div>
+        </div>
+    </div>
+
+        {{/unless}}
+        {{/each}}
+</div> 
+
+</div>
+
+
+
+
