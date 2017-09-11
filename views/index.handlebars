@@ -1,23 +1,51 @@
-<form method="get" action="/scrape">
-	<button type="button submit" class="btn btn-default">Scrape new articles!</button>
-</form>
+<div class="content row">
 
-<form method="get" action="api/articles/saved">
-	<button type="button submit" class="btn btn-default">Show saved articles</button>
-</form>
+  <nav class="bg-info navbar-inverse">
+    <div>
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" class="navigation"><a href="/">Daily Developer Digest</a></li>
+        <li role="presentation" class="navigation"><a href="/">Home</a></li>
+        <li role="presentation" class="navigation"><a href="/save/articles">Saved Articles</a></li>
+        <li><a href="/scrape"><button type="submit" class="btn btn-danger">Scrape Articles</button></a></li>
+      </ul>
+    </div>
+  </nav>
 
-{{#each article}}
-<div class="panel panel-default">
-	<div class="panel-body">
-		<a href="{{this.link}}" target="_blank">{{this.title}}</a>
-		<br>{{this.timeAndSummary}}
-		{{this.id}}
-		<form action="/api/articles/{{this.id}}?_method=PUT" method="POST">
-			<button type="submit">Save</button>
-		</form>
-	</div>
+  <div class="row">
+    <div class="banner col-md-12"> 
+      <h1>Daily Developer Digest</h1>
+      <p>Your one stop shop for dev. news</p>
+    </div>
+  </div>
+
+  {{#if newsArticles}}
+    <div class="articleContainer row">
+      {{#each newsArticles}}
+        <div class="article">
+          <div class="panel">
+            <div class="panel-heading row bg-info navbar-inverse">
+              <div class="col-md-11 title">
+                <h3>{{this.title}}</h3>
+              </div>
+              <div class="col-md-1 link">
+                <a href="#"><button type="submit" class="btn btn-danger save" data-id={{this.id}}>Save Article</button></a>
+              </div>
+            </div>
+            <div class="panel-body">{{this.link}}  
+            </div>
+          </div> 
+        </div>  
+      {{/each}}
+    </div>  
+  {{else}}
+    <div class="noArticles">
+      <h2>Please scrape articles to view the latest news</h2>
+    </div>
+  {{/if}}
 </div>
-</ul>
-{{/each}}
+<footer class="footer row">
+  <p>&copy; copyright Tasha</p>
+</footer>
+
 
 

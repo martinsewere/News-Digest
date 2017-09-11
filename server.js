@@ -1,45 +1,38 @@
-/* Scrape and Display
- * (If you can do this, you should be set for your hw)
- * ================================================== */
-
-// STUDENTS:
-// Please complete the routes with TODOs inside.
-// Your specific instructions lie there
-
-// Good luck!
-
-
-
-
+// Dependencies
 var express = require("express");
-const body = require("body-parser");
-const path = require("path");
-const app = express();
-const exphbs = require("express-handlebars");
-const router = require(path.join(__dirname, "controllers", "controller.js"));
-const methodOverride = require('method-override');
-const mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+// Mongoose mpromise deprecated - use bluebird promises
+var Promise = require("bluebird");
 
-
-// Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 
+var port = process.env.PORT || 3000;
 
-// Set Handlebars as the default templating engine.
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+// Initialize Express
+var app = express();
 
-app.use(body.json()); // support json encoded bodies
-app.use(body.urlencoded({ extended: false })); // support encoded bodies
-
-app.use(methodOverride('_method'))
+// Use morgan and body parser with our app
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 // Make public a static dir
 app.use(express.static("public"));
-app.use("/", router);
+
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Import routes and give the server access to them.
+var routes = require("./controllers/controller.js");
+
+app.use("/", routes);
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/newsdb");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news_scrapper");
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -53,6 +46,6 @@ db.once("open", function() {
 });
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log("App running on port 3000!");
 });

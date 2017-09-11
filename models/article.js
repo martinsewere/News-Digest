@@ -9,28 +9,22 @@ var ArticleSchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   // link is a required string
   link: {
     type: String,
-    required: true,
-    unique: true
-  },
-  timeAndSummary: {
-    type: String,
-    required: true,
-    unique: true
+    required: true
   },
   saved: {
     type: Boolean,
     default: false
-  }
+  },
   // This only saves one note's ObjectId, ref refers to the Note model
-  // comment: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "Note"
-  // }
+  note: [{
+    type: Schema.Types.ObjectId,
+    ref: "Note"
+  }]
 });
 
 // Create the Article model with the ArticleSchema
