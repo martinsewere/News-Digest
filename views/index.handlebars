@@ -1,46 +1,23 @@
-    <!-- Start handlebars -->
-  <div class="navbar-fixed">
-      <nav>
-        <div class="nav-wrapper purple darken-3">
-            <a href="#" class="brand-logo">MongooseScrapper!</a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#" class="nav-butt">Home</a></li>
-                <li><a href="#" class="nav-butt">Saved Articles</a></li>
-                <li>
-                    <form action="/scrape" class="button-size submitForm">
-                        <button class="waves-effect waves-light btn-large purple accent-4 scrapeBtn"><i class="material-icons left purple accent-4">remove_red_eye</i>Scrape Now!</button>
-                    </form>
-                </li>
+<form method="get" action="/scrape">
+	<button type="button submit" class="btn btn-default">Scrape new articles!</button>
+</form>
 
-            </ul>
-        </div>
-      </nav>
-  </div>
+<form method="get" action="api/articles/saved">
+	<button type="button submit" class="btn btn-default">Show saved articles</button>
+</form>
 
-
-<div class="jumbotron">
-  <div class="container">
-    <h1 class="display-3">ArticleScrape!</h1>
-    <p class="lead">Scraping the New York Times!</p>
-  </div>
+{{#each article}}
+<div class="panel panel-default">
+	<div class="panel-body">
+		<a href="{{this.link}}" target="_blank">{{this.title}}</a>
+		<br>{{this.timeAndSummary}}
+		{{this.id}}
+		<form action="/api/articles/{{this.id}}?_method=PUT" method="POST">
+			<button type="submit">Save</button>
+		</form>
+	</div>
 </div>
+</ul>
+{{/each}}
 
-<div class="container-fluid">
-    <div class="row">  
-     <div class="col-lg-12" id="articleSection">  
-        <div class="panel panel-warning text-center" id="noneDiv">
-            <div class="panel-heading">
-                <h3 class="panel-title">No Articles -- Click the "Scrape Now" button!</h3>
-            </div>
-        </div>
-     </div>
-    </div>
- </div>
- <div id="wrapper">
-    <h1 id ="header">News Scraper
-    <p><i>Click on an article to create or read a comment.</i></p>
-    </h1>
-    <div id="articles"></div>
-    <div id="notes"></div>
-  </div>
+
